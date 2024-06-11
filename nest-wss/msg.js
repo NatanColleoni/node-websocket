@@ -1,22 +1,14 @@
-const socket = io("ws://localhost:3000");
+const express = require('express');
+const { createServer } = require('node:http');
+const { join } = require('node:path');
 
+const app = express();
+const server = createServer(app);
 
-socket.addEventListener('messageToServer', (event) => {
-    console.log('Connected to WebSocket server');
-    socket.send('Hello, server!');
-  });
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, 'index.html'));
+});
 
-  
-
-document
-  .getElementById("message-input")
-  .addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const message = event.target.value;
-      
-      socket.emit('messageToServer', message)
-
-      event.target.value = "";
-    }
-  });
+server.listen(3001, () => {
+  console.log('server running at http://localhost:3001');
+});

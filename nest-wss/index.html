@@ -14,8 +14,23 @@
         <footer></footer>
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="msg.js"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <script>
+        const socket = io('http://localhost:3000');
+
+        document
+            .getElementById("message-input")
+            .addEventListener("keypress", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    const message = event.target.value;
+                    console.log(message)
+                    socket.emit('messageToServer', { message: message });
+
+                    event.target.value = "";
+                }
+            });
+    </script>
 </body>
 
 </html>

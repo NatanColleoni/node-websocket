@@ -9,8 +9,8 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   private logger: Logger = new Logger('AppGateway')
 
   @SubscribeMessage('messageToServer')
-  handleMessage(client: Socket, payload: string): void {
-    this.logger.log(payload)
+  handleMessage(client: Socket, payload: any): void {
+    this.logger.warn(`mensagem recebida do cliente: ${payload.message}`)
   }
   
   afterInit(server: Server) {
